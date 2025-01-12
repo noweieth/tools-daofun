@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",
+    "@grpc/grpc-js": "^1.12.5",
     "@metaplex-foundation/js": "^0.20.1",
     "@metaplex-foundation/mpl-token-metadata": "^3.3.0",
     "@metaplex-foundation/umi": "^1.0.0",
