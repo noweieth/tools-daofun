@@ -11,14 +11,13 @@ import {
 import axios, { AxiosError } from "axios";
 import bs58 from "bs58";
 import { Currency, CurrencyAmount } from "@raydium-io/raydium-sdk";
-import { TransactionExecutor } from "./transactionExcutor";
 import { sleep } from "../utils";
 // import { searcherClient } from "jito-ts/dist/sdk/block-engine/searcher.js";
 
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 15000;
 
-export class JitoTransactionExecutor implements TransactionExecutor {
+export class JitoTransactionExecutor {
   private jitpTipAccounts = [
     "Cw8CFyM9FkoMi7K7Crf6HNQqf4uEMzpKw6QNghXLvLkY",
     "DttWaMuVvTiduZRnguLF7jNxTgiMBZ1hyAumKUiL2KRL",

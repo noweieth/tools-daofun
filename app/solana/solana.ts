@@ -12,6 +12,7 @@ import bs58 from "bs58";
 import { derivePath } from "ed25519-hd-key";
 import {
   TOKEN_PROGRAM_ID,
+  TOKEN_2022_PROGRAM_ID,
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createInitializeAccountInstruction,
 } from "@solana/spl-token";
@@ -31,11 +32,8 @@ const keepaliveAgent = new https.Agent({
 export class Solana {
   public mnemonic: string = "";
   private index: number = 0;
-  private wallets: WALLET[] = [];
   public connection: Connection;
   public WSOL: string = process.env.NEXT_PUBLIC_WSOL as string;
-  private txExcutor: JitoTransactionExecutor | null;
-  private JITO_FEE: string = process.env.NEXT_PUBLIC_JITO_FEE as string;
 
   constructor() {
     this.connection = new Connection(
@@ -43,11 +41,8 @@ export class Solana {
       {
         wsEndpoint: process.env.NEXT_PUBLIC_WSS_SOLANA,
         commitment: "processed",
-        httpAgent: keepaliveAgent,
       }
     );
-    this.txExcutor = new JitoTransactionExecutor(this.connection);
-    this.init();
   }
 
   async getBlock() {
@@ -292,6 +287,18 @@ export class Solana {
       }
     } catch (e: any) {
       console.log(e.message);
+    }
+  }
+
+  importWallet(privateKey: string) {
+    try {
+      const secretKey = bs58.decode(privateKey.trim());
+      const account = Keypair.fromSecretKey(secretKey);
+      const address = account.publicKey.toString();
+      return address;
+    } catch (e: any) {
+      console.log(e.message);
+      return [];
     }
   }
 
