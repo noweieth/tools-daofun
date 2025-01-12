@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package solana;
+
+service SolanaService {
+  // RPC để lấy balance của một địa chỉ cụ thể
+  rpc GetBalance (BalanceRequest) returns (BalanceResponse);
+
+  // RPC để lấy balance token của một địa chỉ cụ thể
+  rpc GetTokenBalance (TokenBalanceRequest) returns (TokenBalanceResponse);
+}
+
+// Message cho yêu cầu lấy balance SOL
+message BalanceRequest {
+  string address = 1; // Địa chỉ ví Solana
+}
+
+// Message cho phản hồi balance SOL
+message BalanceResponse {
+  uint64 lamports = 1; // Balance trả về dưới dạng lamports (1 SOL = 1e9 lamports)
+}
+
+// Message cho yêu cầu lấy balance token
+message TokenBalanceRequest {
+  string address = 1; // Địa chỉ ví Solana
+  string mintAddress = 2; // Địa chỉ mint của token cần lấy balance
+}
+
+// Message cho phản hồi balance token
+message TokenBalanceResponse {
+  uint64 tokenAmount = 1; // Số lượng token có trong ví
+}
